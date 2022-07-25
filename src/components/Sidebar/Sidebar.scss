@@ -1,0 +1,131 @@
+@import "../../App.scss";
+
+.sidebar {
+  width: 19.22%;
+  height: 100%;
+  &__inner {
+    padding-top: 22px;
+  }
+  &__logo-box {
+    padding-left: 34px;
+    margin-bottom: 26px;
+  }
+  &__nav {
+    width: 100%;
+    height: auto;
+  }
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+  &__item {
+    width: 100%;
+    a {
+      width: 100%;
+      display: inline-block;
+      text-decoration: none;
+    }
+  }
+  &__item-box {
+    position: relative;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    padding: 12px 16px 14px 33px;
+    border-radius: 0 37px 37px 0;
+    background: transparent;
+    transition: all 0.2s ease;
+  }
+  &__item-act-span {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    width: 6px;
+    height: 6px;
+    background: transparent;
+    border-radius: $border-radius-5;
+  }
+  &__item-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+    margin-right: 22px;
+  }
+  &__item-title {
+    display: inline-block;
+    color: $primary-color-3;
+    line-height: 18px;
+    font-weight: 400;
+    font-size: 15px;
+    -webkit-text-stroke: 400;
+  }
+  &__item-span-icon {
+    margin-left: auto;
+    display: inline-block;
+    transition: all 0.2s ease;
+  }
+  &__item-acardion {
+    position: relative;
+    width: 175px;
+    height: 0;
+    margin-left: auto;
+    margin-right: 20px;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    z-index: 1;
+  }
+  &__item-acardion-list {
+    margin: 0;
+    padding: 0;
+    padding-top: 14px;
+    list-style-type: none;
+  }
+  &__item_acardion-item {
+    margin-bottom: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    &:nth-child(9) {
+      margin-bottom: 0;
+    }
+    &:hover {
+      .sidebar__item-acardion-tit span {
+        width: 20px;
+      }
+    }
+  }
+  &__item-acardion-tit {
+    color: $primary-color-3;
+    line-height: 18px;
+    font-weight: 400;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  &__item-acardion-span {
+    display: inline-block;
+    width: 10px;
+    height: 2px;
+    margin-right: 10px;
+    background: $primary-color-5;
+    border-radius: $border-radius-4;
+    transition: all 0.2s ease;
+  }
+}
+.navItemAct {
+  background: $primary-color-6 !important;
+}
+.navItemTitle {
+  -webkit-text-stroke: 0.6px;
+  color: $primary-color-4;
+}
+.navItemAct-span {
+  background: $primary-color-4;
+}
+.navItemAcardShow {
+  height: 280px;
+}
+.navItemAcardActSpan {
+  width: 20px;
+}

@@ -1,0 +1,20 @@
+@import "../../../App.scss";
+
+.right {
+  &__flowed-item {
+    width: 100%;
+    height: auto;
+    padding-bottom: 10px;
+    border-top: 1px solid rgba(7, 46, 75, 0.2);
+
+    span {
+      margin-bottom: 3px;
+    }
+    p {
+      font-size: 12px !important;
+      font-weight: 400;
+      line-height: 16px;
+      color: $primary-color-3;
+    }
+  }
+}
