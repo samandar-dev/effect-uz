@@ -8,7 +8,7 @@ function VideoRightItems({ videoNewsItems, videoNewsItemId, setVideoNewsItemId }
     <>
       {videoNewsItems.map((item, inx) => (
         videoNewsItemId !== item.id ?
-          <li className="videonews__content-right-item">
+          <li className="videonews__content-right-item" key={inx + 1}>
             <div className="videonews__content-right-img-box">
               <img src={videoImg1} alt="video img" />
               <button className='videonews__content-right-play-btn'>

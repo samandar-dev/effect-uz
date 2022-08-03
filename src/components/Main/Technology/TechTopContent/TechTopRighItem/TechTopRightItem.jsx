@@ -1,30 +1,50 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
+import GET from '../../../../../API/GET.JSX';
 import dataIcon from '../../../../../assets/icons/dataIcon.svg'
-import TechImg_2 from '../../../../../assets/images/technology-img-2.png'
 
-function TechTopRightItem({ techItemsAct, setTechItemsAct }) {
-  const techItems = [1, 2, 3, 4];
+function TechTopRightItem() {
+  const [techItemsAct, setTechItemsAct] = useState(22)
+  const [data, setData] = useState([])
+
+  const fechData = async () => {
+    try {
+      const category = await GET.newsAll();
+      setData(category.data.items)
+    } catch (err) {
+      console.error(err)
+      return;
+    }
+  }
+
+  console.log(data);
+
+  useEffect(() => {
+    fechData()
+  }, []);
+
   return (
     <>
-      {techItems.map((itm, inx) => (
-        <li
-          className={`main__technology-right-item ${techItemsAct === inx + 1 ? "techItemAct" : ""}`}
-          onClick={() => setTechItemsAct(inx + 1)}
-          key={inx + 1}
-        >
-          <div className="main__technology-right-item-desc">
-            <span className="main__technology-data-tit">
-              <img src={dataIcon} alt="dataIcon" /> 11:45  |  13.07.2022
-            </span>
-            <p className='main__technology-text'>
-              Instagram working on ‘Exclusive Stories’ for subscribers
-            </p>
-          </div>
+      {data.map((itm, inx) => (
+        inx + 1 <= 4 ?
+          <Link to={`/newsitems/${itm.id}`}>
+            <li
+              className={`main__technology-right-item ${techItemsAct === itm.id ? "techItemAct" : ""}`}
+              onClick={() => setTechItemsAct(itm.id)}
+              key={itm.id}
+            >
+              <div className="main__technology-right-item-desc">
+                <span className="main__technology-data-tit">
+                  <img src={dataIcon} alt="dataIcon" /> 11:45  |  {itm.created_date}
+                </span>
+                <p className='main__technology-text'>{itm.title_uz.substring(0, 45)}...</p>
+              </div>
 
-          <div className="main__technology-right-item-img-box">
-            <img src={TechImg_2} alt="TechImg_2" />
-          </div>
-        </li>
+              <div className="main__technology-right-item-img-box">
+                <img src={itm.default_img} alt="TechImg_2" />
+              </div>
+            </li>
+          </Link> : ""
       ))}
     </>
   )

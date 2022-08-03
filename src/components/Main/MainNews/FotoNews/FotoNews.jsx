@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import './FotoNews.scss'
 
 import FotoNewsImg_1 from '../../../../assets/images/fotonews-img-1.png'
 import FotoNewsImg_2 from '../../../../assets/images/fotonews-img-2.png'
 import FotoNewsImg_3 from '../../../../assets/images/fotonews-img-3.png'
+import { useTranslation } from 'react-i18next'
 
 function FotoNews() {
-
+  const { t } = useTranslation()
   const [fotoNewsSlider, setFotoNewsSlider] = useState(1)
   const fotonewsItems = [
     {
@@ -40,8 +42,8 @@ function FotoNews() {
     <>
       <section className='fotonews'>
         <div className="fotonews__top">
-          <h3 className="fotonews__title">Foto-yangiliklar</h3>
-          <button className='fotonews__btn'>Bo‘limga o‘tish</button>
+          <h3 className="fotonews__title">{t("Foto-yangiliklar")}</h3>
+          <button className='fotonews__btn'>{t("Bo‘limga o‘tish")}</button>
         </div>
 
         <div className="fotonews__slider">
@@ -56,17 +58,19 @@ function FotoNews() {
 
           <ul className="fotonews__slider-list"
             style={{
-              transform: `translateX(-${fotoNewsSlider * 400 - 400}px)`
+              transform: `translateX(-${fotoNewsSlider * 300 - 300}px)`
             }}>
             {fotonewsItems.map((item, inx) => (
               <li className="fotonews__slider-item" key={item.id}>
-                <div className="fotonews__slider-img-box">
-                  <img src={item.img} alt="foto news img" />
-                </div>
+                <Link className='fotonews__slider-item-link' to={`/newsitems/${item.id}`}>
+                  <div className="fotonews__slider-img-box">
+                    <img src={item.img} alt="foto news img" />
+                  </div>
 
-                <div className="fotonews__slider-desc">
-                  <p className='fotonews__slider-text'>{item.desc}</p>
-                </div>
+                  <div className="fotonews__slider-desc">
+                    <p className='fotonews__slider-text'>{item.desc}</p>
+                  </div>
+                </Link>
               </li>
             ))}
           </ul>

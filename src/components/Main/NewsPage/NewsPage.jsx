@@ -3,8 +3,10 @@ import './NewsPage.scss'
 
 import NewsPageItems from './NewsPageItems/NewsPageItems'
 import itemImg from '../../../assets/images/technology-img-3.png'
+import { useTranslation } from 'react-i18next'
 
 function NewsPage() {
+  const { t } = useTranslation()
 
   const newsObj_One = [
     {
@@ -114,7 +116,7 @@ function NewsPage() {
         </ul>
 
         <div className='news-page__btn-box'>
-          <button className='news-page__add-items-btn'>Yana yuklash</button>
+          <button className='news-page__add-items-btn'>{t("Yana yuklash")}</button>
         </div>
       </section>
     </>

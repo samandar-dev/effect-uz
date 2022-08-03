@@ -1,9 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import GET from '../../../API/GET.JSX'
 import sunIcon from '../../../assets/icons/sun.svg'
 import './RightWeather.scss'
 
 function RightWeather() {
+  const { t } = useTranslation()
   const [weatherSlider, setWeatherSilder] = useState(1)
+
+  const [data, setData] = useState([])
+
+  const fechData = async () => {
+    try {
+      const category = await GET.provence();
+      setData(category.data)
+    } catch (err) {
+      console.error(err)
+      return;
+    }
+  }
+
+  useEffect(() => {
+    fechData()
+  }, []);
+
   return (
     <>
       <div className="right__weather">
@@ -13,15 +33,11 @@ function RightWeather() {
               style={{
                 transform: `translateX(-${weatherSlider * 150 - 150}px)`
               }}>
-              <li className="right__weather-title-item">
-                <p className='right__weather-title'>Qashqadaryo, Qarshi</p>
-              </li>
-              <li className="right__weather-title-item">
-                <p className='right__weather-title'>Tashkent</p>
-              </li>
-              <li className="right__weather-title-item">
-                <p className='right__weather-title'>Andijon</p>
-              </li>
+              {data.map((item, inx) => (
+                <li className="right__weather-title-item" key={inx + 1}>
+                  <p className='right__weather-title'>{item.name}</p>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -30,8 +46,8 @@ function RightWeather() {
               onClick={() => setWeatherSilder(weatherSlider > 1 ? weatherSlider - 1 : 1)}>
               <i className='bx bx-chevron-left' ></i>
             </button>
-            <button className={`right__weather-right-btn ${weatherSlider === 3 ? "weatherBtnAct" : ""}`}
-              onClick={() => setWeatherSilder(weatherSlider < 3 ? weatherSlider + 1 : 3)}>
+            <button className={`right__weather-right-btn ${weatherSlider === data.length ? "weatherBtnAct" : ""}`}
+              onClick={() => setWeatherSilder(weatherSlider < data.length ? weatherSlider + 1 : data.length)}>
               <i className='bx bx-chevron-right' ></i>
             </button>
           </div>
@@ -42,36 +58,18 @@ function RightWeather() {
             style={{
               transform: `translateX(-${weatherSlider * 255 - 255}px)`
             }}>
-            <li className="right__weather-item">
-              <div>
-                <span className='right__weather-item-tit'>Quyoshli</span>
-                <p className='right__weather-item-degree'>31<span>o</span>c / 25<span>o</span>c</p>
-              </div>
+            {data.map((item, inx) => (
+              <li className="right__weather-item" key={inx + 1}>
+                <div>
+                  <span className='right__weather-item-tit'>{t(`Quyoshli`)}</span>
+                  <p className='right__weather-item-degree'>31<span>o</span>c / 25<span>o</span>c</p>
+                </div>
 
-              <div className="right__weather-item-img">
-                <img src={sunIcon} alt="sun icon" />
-              </div>
-            </li>
-            <li className="right__weather-item">
-              <div>
-                <span className='right__weather-item-tit'>Bulutli</span>
-                <p className='right__weather-item-degree'>15<span>o</span>c / 12<span>o</span>c</p>
-              </div>
-
-              <div className="right__weather-item-img">
-                <img src={sunIcon} alt="sun icon" />
-              </div>
-            </li>
-            <li className="right__weather-item">
-              <div>
-                <span className='right__weather-item-tit'>Quyoshli</span>
-                <p className='right__weather-item-degree'>33<span>o</span>c / 29<span>o</span>c</p>
-              </div>
-
-              <div className="right__weather-item-img">
-                <img src={sunIcon} alt="sun icon" />
-              </div>
-            </li>
+                <div className="right__weather-item-img">
+                  <img src={sunIcon} alt="sun icon" />
+                </div>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

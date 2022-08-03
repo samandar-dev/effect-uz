@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './TechTopContent.scss';
 
 import timeIcon from '../../../../assets/icons/time-icon.svg'
@@ -7,8 +7,6 @@ import techIcon from '../../../../assets/icons/technology-icon.svg'
 import TechImg_1 from '../../../../assets/images/technology-img-1.png'
 
 function TechTopContent() {
-  const [techItemsAct, setTechItemsAct] = useState(1)
-
   return (
     <>
       <div className="main__technology-inner">
@@ -32,10 +30,7 @@ function TechTopContent() {
 
         <div className="main__technology-right">
           <ul className="main__technology-right-list">
-            <TechTopRightItem
-              techItemsAct={techItemsAct}
-              setTechItemsAct={setTechItemsAct}
-            />
+            <TechTopRightItem />
           </ul>
         </div>
       </div>

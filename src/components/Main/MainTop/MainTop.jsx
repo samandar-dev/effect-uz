@@ -2,8 +2,10 @@ import React from 'react'
 import './MainTop.scss'
 import icon1 from '../../../assets/icons/main-top-icon-1.svg'
 import icon2 from '../../../assets/icons/main-top-icon-2.svg'
+import { useTranslation } from 'react-i18next';
 
 function MainTop() {
+  const { t } = useTranslation();
   return (
     <>
       <div className="main__top">
@@ -11,7 +13,7 @@ function MainTop() {
           <input
             type="text"
             name='text'
-            placeholder='Sayt bo’ylab izlash'
+            placeholder={t("Sayt bo'ylab izlash")}
           />
           <span>
             <i className='bx bx-search'></i>

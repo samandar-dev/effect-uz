@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import './Sidebar.scss'
 
@@ -17,50 +17,54 @@ import navIcon_act_5 from '../../assets/icons/navIcon-act-5.svg';
 import navIcon_act_6 from '../../assets/icons/navIcon-act-6.svg';
 import iconRight from '../../assets/icons/right-icon.svg';
 import iconBottom from '../../assets/icons/bottom-icon.svg';
+import { useTranslation } from 'react-i18next';
+import i18n from '../../lang/i18n';
+import GET from '../../API/GET.JSX';
 
 function Sidebar() {
+  const { t } = useTranslation();
   const [navItemAcardionOne, setNavItemAcardionOne] = useState(false)
   const [navItemAcardionTwo, setNavItemAcardionTwo] = useState(false)
 
   const navItems = [
     {
       id: 1,
-      name: 'Bosh sahifa',
+      name: t('Bosh Sahifa'),
       pathName: "/home",
       icon: navIcon1,
       iconAct: navIcon_act_1
     },
     {
       id: 2,
-      name: 'Yangiliklar lentasi',
+      name: t('Yangiliklar lentasi'),
       pathName: "/news",
       icon: navIcon2,
       iconAct: navIcon_act_2
     },
     {
       id: 3,
-      name: 'Ruknlar',
+      name: t('Ruknlar'),
       pathName: "/politics",
       icon: navIcon3,
       iconAct: navIcon_act_3
     },
     {
       id: 4,
-      name: 'Audio xabarlar',
-      pathName: "/notfound",
+      name: t('Audio xabarlar'),
+      pathName: "/audiomessag",
       icon: navIcon4,
       iconAct: navIcon_act_4
     },
     {
       id: 5,
-      name: 'Video xabarlar',
+      name: t('Video xabarlar'),
       pathName: "/notfound",
       icon: navIcon5,
       iconAct: navIcon_act_5
     },
     {
       id: 6,
-      name: 'Hududlar',
+      name: t('Hududlar'),
       pathName: "/notfound",
       icon: navIcon6,
       iconAct: navIcon_act_6
@@ -109,6 +113,22 @@ function Sidebar() {
       active: false,
     },
   ]
+
+  const [data, setData] = useState([])
+
+  const fechData = async () => {
+    try {
+      const category = await GET.provence();
+      setData(category.data)
+    } catch (err) {
+      console.error(err)
+      return;
+    }
+  }
+
+  useEffect(() => {
+    fechData()
+  }, []);
 
   return (
     <>
@@ -171,7 +191,7 @@ function Sidebar() {
                       className={`sidebar__item-acardion 
                     ${navItemAcardionOne ? "navItemAcardShow" : ""}`}>
                       <ul className="sidebar__item-acardion-list">
-                        {navItemAcardionItem.map((itm, indx) => (
+                        {data.map((itm, indx) => (
                           <li
                             className="sidebar__item_acardion-item"
                             key={indx + 1}
@@ -190,7 +210,7 @@ function Sidebar() {
                   {inx + 1 === 6 ?
                     <div className={`sidebar__item-acardion ${navItemAcardionTwo ? "navItemAcardShow" : ""}`}>
                       <ul className="sidebar__item-acardion-list">
-                        {navItemAcardionItem.map((itm, indx) => (
+                        {data.map((itm, indx) => (
                           <li className="sidebar__item_acardion-item" key={indx + 1}>
                             <p className="sidebar__item-acardion-tit">
                               <span

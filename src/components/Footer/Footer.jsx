@@ -8,8 +8,10 @@ import email from '../../assets/icons/email.svg'
 import store1 from '../../assets/icons/store.svg'
 import store2 from '../../assets/icons/appstore.svg'
 import store3 from '../../assets/icons/winstore.svg'
+import { useTranslation } from 'react-i18next'
 
 function Footer() {
+  const { t } = useTranslation()
   return (
     <>
       <section className='footer'>
@@ -22,89 +24,89 @@ function Footer() {
             <div className="footer__menus-desc">
               <div className="footer__menus">
                 <div className="footer__menu">
-                  <h3 className='footer__menus-title'>Foydali sahifalar</h3>
+                  <h3 className='footer__menus-title'>{t("Foydali sahifalar")}</h3>
 
                   <ul className="footer__menus-list">
                     <li className="footer__menus-item">
-                      <Link to={'/'}>Yangiliklar lentasi</Link>
+                      <Link to={'/'}>{t("Yangiliklar lentasi")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>Foto-yangiliklar</Link>
+                      <Link to={'/'}>{t("Foto-yangiliklar")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>Video-yangiliklar</Link>
+                      <Link to={'/'}>{t("Video-yangiliklar")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>Content</Link>
+                      <Link to={'/'}>{t("Content")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>Integrations</Link>
+                      <Link to={'/'}>{t("Integrations")}</Link>
                     </li>
                   </ul>
                 </div>
 
                 <div className="footer__menu">
-                  <h3 className='footer__menus-title'>Ruknlar</h3>
+                  <h3 className='footer__menus-title'>{t("Ruknlar")}</h3>
 
                   <ul className="footer__menus-list">
                     <li className="footer__menus-item">
-                      <Link to={'/'}>Siyosat</Link>
+                      <Link to={'/'}>{t("Siyosat")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>Texnologiya</Link>
+                      <Link to={'/'}>{t("Texnologiya")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>Sport</Link>
+                      <Link to={'/'}>{t("Sport")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>Website Builder</Link>
+                      <Link to={'/'}>{t("Website Builder")}</Link>
                     </li>
                   </ul>
                 </div>
 
                 <div className="footer__menu">
-                  <h3 className='footer__menus-title'>Hududlar</h3>
+                  <h3 className='footer__menus-title'>{t("Hudutlar")}</h3>
 
                   <ul className="footer__menus-list">
                     <li className="footer__menus-item">
-                      <Link to={'/'}>Toshkent</Link>
+                      <Link to={'/'}>{t("Toshkent")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>Samarqand</Link>
+                      <Link to={'/'}>{t("Samarqand")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>Qashqadaryo</Link>
+                      <Link to={'/'}>{t("Qashqadaryo")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>Hosting</Link>
+                      <Link to={'/'}>{t("Hosting")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>Developers</Link>
+                      <Link to={'/'}>{t("Developers")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>Support</Link>
+                      <Link to={'/'}>{t("Support")}</Link>
                     </li>
                   </ul>
                 </div>
 
                 <div className="footer__menu">
-                  <h3 className='footer__menus-title'>Support</h3>
+                  <h3 className='footer__menus-title'>{t("Support")}</h3>
 
                   <ul className="footer__menus-list">
                     <li className="footer__menus-item">
-                      <Link to={'/'}>About Us</Link>
+                      <Link to={'/'}>{t("About Us")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>Careers</Link>
+                      <Link to={'/'}>{t("Careers")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>Ko’p so’raladigan savollar</Link>
+                      <Link to={'/'}>{t("Ko’p so’raladigan savollar")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>Jamoa</Link>
+                      <Link to={'/'}>{t("Jamoa")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>Bo’sh ish o’rni</Link>
+                      <Link to={'/'}>{t("Bo’sh ish o’rni")}</Link>
                     </li>
                   </ul>
                 </div>
@@ -117,7 +119,7 @@ function Footer() {
 
             <div className="footer__right">
               <div className="footer__contact">
-                <h3 className='footer__contact-title'>Contact Us</h3>
+                <h3 className='footer__contact-title'>{t("Contact Us")}</h3>
 
                 <ul className="footer__contact-list">
                   <li className="footer__contact-item">
@@ -137,7 +139,7 @@ function Footer() {
               </div>
 
               <div className="footer__follow">
-                <h3 className='footer__follow-title'>Follow us</h3>
+                <h3 className='footer__follow-title'>{t("Follow us")}</h3>
 
                 <ul className="footer__follow-list">
                   <li className="footer__follow-item">

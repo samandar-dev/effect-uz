@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import './TechCards.scss'
 import TechCardItem from './TechCardItem/TechCardItem'
+import { useTranslation } from 'react-i18next'
 
 function TechCards() {
   const [techCardAct, setTechCardAct] = useState(1)
-
+  const { t } = useTranslation()
   return (
     <>
       <div className="main__technology-cards">
@@ -16,7 +17,7 @@ function TechCards() {
         </ul>
 
         <div className="main___technology-cards-btn">
-          <button className='main__technology-cars-btn'>Barcha yangiliklar</button>
+          <button className='main__technology-cars-btn'>{t("Barcha yangiliklar")}</button>
         </div>
       </div>
     </>

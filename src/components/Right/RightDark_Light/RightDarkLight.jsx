@@ -7,6 +7,7 @@ function RightDarkLight() {
 
   return (
     <>
+      <style>{`.app, body ${!darkLight ? "{ background-color : lightblue }" : ""}`}</style>
       <div className="right__top-dark-light">
         <button className={`right__top-light ${darkLight ? "LightActBtn" : ""}`}
           onClick={() => setDarkLight(true)}>

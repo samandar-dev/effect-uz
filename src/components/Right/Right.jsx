@@ -6,9 +6,11 @@ import file_text from '../../assets/icons/file-text.svg'
 import RightLanguage from './RightLanguage/RightLanguage'
 import RightDarkLight from './RightDark_Light/RightDarkLight'
 import RightFlowedItem from './RightFlowedItem/RightFlowedItem'
+import { useTranslation } from 'react-i18next'
 import './Right.scss'
 
 function Right() {
+  const { t } = useTranslation()
   return (
     <>
       <section className='right'>
@@ -39,16 +41,16 @@ function Right() {
 
           <div className="right__reporter">
             <p className='right__reporter-title'>
-              <img src={feather} alt="" /> Mobil muhbirga aylaning!</p>
+              <img src={feather} alt="" /> {t("Mobil muhbirga aylaning!")}</p>
             <div className="right__reporter-box">
-              <p className='right__reporter-box-tit'>Masofadan bizning muhbirga aylaning !</p>
-              <button className='right__reporter-box-btn'>Batafsil</button>
+              <p className='right__reporter-box-tit'>{t("Masofadan bizning muhbirga aylaning !")}</p>
+              <button className='right__reporter-box-btn'>{t("Batafsil")}</button>
             </div>
           </div>
 
           <div className="right__flowed">
             <h4 className="right__reporter-title">
-              <img src={file_text} alt="flowed" /> Eng ko‘p o‘qilgan
+              <img src={file_text} alt="flowed" /> {t("Eng ko‘p o‘qilgan")}
             </h4>
 
             <ul className="right__flowed-list">

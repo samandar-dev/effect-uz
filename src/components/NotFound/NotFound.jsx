@@ -8,7 +8,7 @@ function NoodFound() {
   return (
     <>
       <div className="error-box">
-        <h1 className='error'>Page nood Found</h1>
+        <h1 className='error'>Page not Found</h1>
         <button className='back' onClick={() => backBtn(-1)}>back</button>
       </div>
     </>
