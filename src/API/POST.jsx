@@ -9,16 +9,12 @@ const headers = {
    }
 }
 
-// const params = {
-//    username: "api",
-//    password: "apiapiapi",
-// }
-
 const LOGIN_URL = "https://simply.uz/api/login";
+const COMMENT_URL = "https://simply.uz/api/comment"
 
 const POST = {
-   login: () => axios.post(LOGIN_URL, params),
-   voice: (params) => axios.post(LOGIN_URL, params, headers)
+   login: () => axios.post(LOGIN_URL),
+   comment: (params) => axios.post(COMMENT_URL, params, headers)
 }
 
 export default POST

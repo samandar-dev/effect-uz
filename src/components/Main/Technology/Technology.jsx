@@ -1,16 +1,24 @@
 import React from 'react'
-
-import TechTopContent from './TechTopContent/TechTopContent'
-import MainAside from '../MainAside/MainAside'
 import TechCards from './TechCards/TechCards'
+import MainAside from '../MainAside/MainAside'
+import TechTopContent from './TechTopContent/TechTopContent'
+import VideoNewsSlider from '../../VideoNewsSlider/VideoNewsSlider'
 
 function Technology() {
   return (
     <>
       <div className="main__technology">
         <TechTopContent />
+
+        <div className="main__tech-video">
+          <VideoNewsSlider />
+        </div>
+
         <MainAside />
-        <TechCards />
+
+        <div className="main__techCard">
+          <TechCards />
+        </div>
       </div>
     </>
   )

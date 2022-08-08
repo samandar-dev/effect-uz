@@ -13,9 +13,9 @@ function AsideNews() {
     <>
       <aside className='uza-aside'>
         <div className="uza-aside__desc">
-          <h3 className="uza-aside__title">{t("Har doim xabardor bo’ling!")}</h3>
+          <h3 className="uza-aside__title">{t("har-doim")}</h3>
           <p className='uza-aside__tit'>
-            <Link to={'/'}>Effect.uz</Link> {t("mobil ilovasini ko’chirib oling va barcha yangiliklar siz bilan")}
+            <Link to={'/'}>Effect.uz</Link> {t("kochirib")}
           </p>
 
           <div className="uza-aside__aplication">

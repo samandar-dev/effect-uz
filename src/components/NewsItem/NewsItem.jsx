@@ -1,228 +1,292 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import GET from '../../API/GET.JSX'
+import POST from '../../API/POST'
+import parse from 'html-react-parser';
+import Rating from '@mui/material/Rating';
 import MainTop from '../Main/MainTop/MainTop'
+import 'react-toastify/dist/ReactToastify.css';
+import { useTranslation } from 'react-i18next';
+import Accordion from '@mui/material/Accordion';
+import Typography from '@mui/material/Typography';
+import React, { useEffect, useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import { Link, useLocation, useParams } from 'react-router-dom'
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
 import './NewsItem.scss'
 
-import PhoneImg from '../../assets/images/phone-img.png'
+// IMGS ---------------------------------------------------
+
 import user_img from '../../assets/images/user-img.png'
 import telegram from '../../assets/icons/telegram.svg'
 import facebook from '../../assets/icons/facebook.svg'
 import twitr from '../../assets/icons/twitr.svg'
-import GET from '../../API/GET.JSX'
 
 function NewsItem() {
+  let { id } = useParams()
+  const { t } = useTranslation()
   const location = useLocation()
   const [data, setData] = useState([])
+  const [value, setValue] = useState(2);
+  const [nameVal, setNameVal] = useState("")
+  const [descVal, setDescVal] = useState("")
+  const [apiLang, setApiLang] = useState('oz')
+  const [loading, setLoading] = useState(false)
+  const [pochtaVal, setPochtaVal] = useState("")
+  const [accardIcon, setAccrdIcon] = useState(false)
 
   const fechData = async () => {
     try {
-      const category = await GET.newsAll();
-      setData(category.data.items)
+      setLoading(false)
+      const category = await GET.newsItem(id);
+      setData(category.data)
+      setLoading(true)
     } catch (err) {
-      console.error(err)
-      return;
+      return console.error(err);
+    }
+  }
+
+  const inputsFunc = (e) => {
+    if (e.target.id == 'name') {
+      setNameVal(e.target.value)
+    }
+    if (e.target.id == 'pochta') {
+      setPochtaVal(e.target.value)
+    }
+    if (e.target.id == 'desc') {
+      setDescVal(e.target.value)
+    }
+  }
+
+  const comObj = {
+    new_id: id,
+    description: descVal,
+    userAgent: nameVal
+  }
+
+  const addComment = async () => {
+    if (descVal != "" && nameVal != "") {
+      try {
+        await POST.comment(comObj);
+      } catch (err) {
+        return console.error(err);
+      }
     }
   }
 
   useEffect(() => {
     fechData()
-  }, []);
+    localStorage.getItem('language') != undefined ? setApiLang(localStorage.getItem('language')) : ""
+  }, [localStorage.getItem('language')]);
 
+
+  if (!loading) {
+    return <div className='newItem-loading-box'></div>
+  }
   return (
     <>
       <section className='phone'>
         <MainTop />
 
-        {data.map(item => (
-          location.pathname.split('/').at(-1) == item.id ?
-            <div className="phone__inner">
-              <h3 className="phone__title">Leak: Samsung to announce the Z Fold 3 and Galaxy Watch 4 in August</h3>
+        <div className="phone__inner" key={data.id}>
+          <h3 className="phone__title">
+            {apiLang === 'uz' ? data.title_oz :
+              apiLang === 'oz' ? data.title_uz :
+                apiLang === 'ru' ? data.title_ru : ""}
+          </h3>
 
-              <div className="phone__btn-box">
-                <button className='phone__btn'>{ }</button>
-                <button className='phone__btn'>Mobile</button>
+          <div className="phone__btn-box">
+            <button className='phone__btn'>{data.category_id}</button>
+          </div>
+
+          <div className="phone__img-box">
+            <img src={data.default_img} alt="PhoneImg" />
+          </div>
+
+          <p className="phone__desc">
+            {apiLang === 'uz' ? parse(data.description_oz) :
+              apiLang === 'oz' ? parse(data.description_uz) :
+                apiLang === 'ru' ? parse(data.description_ru) : ""}
+          </p>
+
+          <div className="phone__user-box">
+            <Link className="phone__user-name" to={`/profil/${data.user_id}`}>
+              <h4 className="phone__user-name">{data.user}</h4>
+            </Link>
+
+            <div className="phone__user-rating">
+              <div className="phone__user-star">
+                <p className="phone__user-star-tit">{t('baho')}</p>
+
+                <Rating
+                  name="simple-controlled"
+                  value={value}
+                  onChange={(event, newValue) => {
+                    setValue(newValue);
+                  }}
+                />
               </div>
 
-              <div className="phone__img-box">
-                <img src={item.default_img} alt="PhoneImg" />
+              <div className="phone__user-rating-count">
+                <div>
+                  <p>{t('baholangan')}:</p>
+                  <span>{data.views}</span>
+                </div>
+                <div>
+                  <p>{t('reyting')}:</p>
+                  <span>3.5</span>
+                </div>
               </div>
+            </div>
 
-              <p className="phone__desc">
-                Samsung had a pretty quiet Mobile World Congress event, but it did tell us we’d learn more about its upcoming Google-approved smartwatch at its next Unpacked event. Unfortunately, the company didn’t tell us when exactly that would be, but a new report from Korean publication DigitalDaily News (via 9to5Google) claims the next Unpacked will take place on August 11, at 10 AM ET.
-              </p>
+            <div className="phone__forward">
+              <p className="phone__forward-tit">{t('ulashing')}</p>
 
-              <p className='phone__desc'>
-                Notably, the new Galaxy Watches will be Samsung’s first to not use Tizen OS. Google collaborated with Samsung to revamp Wear OS from the ground up, making it smoother and more efficient.
-              </p>
-              <p className='phone__desc'>
-                Hopefully, the devices are able to maintain the long battery life Samsung’s smartwatches have been known for, while having much greater compatibility with smartwatch apps via Wear OS. That said, the watch will use a custom One UI Watch skin — because it wouldn’t be Samsung if it didn’t put its own twist on the software.
-              </p>
-              <p className="phone__desc">
-                As for the Z Fold 3, it’s expected to be a refinement of the original Fold’s concept without major changes to the form factor. The biggest change aside from the expected spec bump is that the Z Fold 3 will support the S-Pen.
-              </p>
+              <ul className="phone__forward-list">
+                <li className="phone__forward-item">
+                  <a href={`https://telegram.me/share/url?url=effect.uz${location.pathname}`} target="_blank" className="readnews__share-btns">
+                    <i className='readnews__tg bx bxl-telegram'></i>
+                  </a>
+                </li>
+                <li className="phone__forward-item">
+                  <a href={`https://www.facebook.com/sharer.php?u=effect.uz${location.pathname}`} target="_blank" className="readnews__share-btns">
+                    <i className='bx bxl-facebook-circle'></i>
+                  </a>
+                </li>
+                <li className="phone__forward-item">
+                  <a href={`https://twitter.com/intent/tweet?text=effect.uz${location.pathname}`} target="_blank" className="readnews__share-btns">
+                    <i className='readnews__tw bx bxl-twitter'></i>
+                  </a>
+                </li>
+                <li className="phone__forward-item">
+                  <div className="readnews__share-btns" onClick={() => {
+                    return (
+                      navigator.clipboard.writeText(`https://effect.uz${location.pathname}`),
+                      toast.info("Nusxalandi", {
+                        position: "top-right",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      })
+                    )
+                  }}>
+                    <i className='bx bx-link-alt'></i>
+                  </div>
+                </li>
+              </ul>
 
-              <div className="phone__user-box">
-                <Link className="phone__user-name" to={'/profil/:id'}>
-                  <h4 className="phone__user-name">Saidalixon Sobirov</h4>
-                </Link>
+              <div className="phone__forward-copy">
+                <p className="phone__forward-copy-link">{`https://effect.uz${location.pathname}`}</p>
+                <span></span>
+                <button className='phone__forward-copy-btn'
+                  onClick={() => {
+                    return (
+                      navigator.clipboard.writeText(`https://effect.uz${location.pathname}`),
+                      toast.info("Nusxalandi", {
+                        position: "top-right",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      })
+                    )
+                  }}>{t('nusxa')}</button>
+              </div>
+            </div>
+          </div>
 
-                <div className="phone__user-rating">
-                  <div className="phone__user-star">
-                    <p className="phone__user-star-tit">Yangilikga baho bering</p>
+          <div className="phone__comment">
+            <div className="phone__comment-form-box">
+              <p className="phone__comment-title">{t('izoh-qoldirish')} <span></span></p>
 
-                    <ul className="phone__user-star-list">
-                      <li className="phone__user-star-item">
-                        <span>
-                          <i className='bx bxs-star' style={{ color: '#faff05' }}  ></i>
-                        </span>
-                      </li>
-                      <li className="phone__user-star-item">
-                        <span>
-                          <i className='bx bxs-star' style={{ color: '#CCCCCC' }}  ></i>
-                        </span>
-                      </li>
-                      <li className="phone__user-star-item">
-                        <span>
-                          <i className='bx bxs-star' style={{ color: '#CCCCCC' }}  ></i>
-                        </span>
-                      </li>
-                      <li className="phone__user-star-item">
-                        <span>
-                          <i className='bx bxs-star' style={{ color: '#CCCCCC' }}  ></i>
-                        </span>
-                      </li>
-                      <li className="phone__user-star-item">
-                        <span>
-                          <i className='bx bxs-star' style={{ color: '#CCCCCC' }}  ></i>
-                        </span>
-                      </li>
+              <form className="phone__comment-form">
+                <div className="phone__comment-input-box">
+                  <input className='phone__comment-input-user'
+                    id='name'
+                    name='name'
+                    type="text"
+                    value={nameVal}
+                    placeholder={`${t('ismingiz')}`}
+                    onChange={(e) => inputsFunc(e)}
+                  />
+
+                  <input className='phone__comment-input-user'
+                    id='pochta'
+                    name='email'
+                    type="text"
+                    value={pochtaVal}
+                    placeholder={`${t('elektron-pochta')}`}
+                    onChange={(e) => inputsFunc(e)}
+                  />
+                </div>
+
+                <div className="phone__comment-input-box">
+                  <textarea className='phone__comment-input-desc'
+                    id='desc'
+                    name='desc'
+                    type="text"
+                    value={descVal}
+                    placeholder={`${t('izohingiz-bu')}`}
+                    onChange={(e) => inputsFunc(e)}
+                  />
+
+                  <button className='phone__comment-form-btn'
+                    onClick={() => (addComment(), setNameVal(""), setDescVal(""))}>{t('jonatish')}
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <div className="phone__comments-box">
+              <Accordion>
+                <AccordionSummary
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                  onClick={() => setAccrdIcon(!accardIcon)}
+                >
+                  <p className="phone__comments-title">
+                    {t('barcha-izohlar')} ({data.comment_count})
+                    <span>{!accardIcon ? <i className='bx bx-chevron-down'></i> : <i className='bx bx-chevron-up'></i>}</span>
+                  </p>
+                </AccordionSummary>
+
+                <AccordionDetails>
+                  <Typography>
+                    <ul className="phone__comments-list">
+                      {data.comments.map((itm, inx) => (
+                        <li className="phone__comments-item" key={inx + 1}>
+                          <div className="phone__comments-item-like-box">
+                            <button>+</button>
+                            <p>12</p>
+                            <button>-</button>
+                          </div>
+
+                          <div className="phone__comments-item-desc">
+                            <div className="phone__comments-item-desc-top">
+                              <img src={user_img} alt="user img" />
+                              <p className='phone__comments-item-desc-user-name'>{itm.userAgent}</p>
+                              <span className='phone__comments-item-desc-data-comm'>1 {t('oyiga')} avval</span>
+                            </div>
+
+                            <div className="phone__comments-item-desc-box">
+                              <p className='phone__comments-item-desc'>{itm.description}</p>
+                            </div>
+                          </div>
+                        </li>
+                      )).reverse()}
                     </ul>
-                  </div>
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
+            </div>
+          </div>
+        </div>
+        <ToastContainer />
 
-                  <div className="phone__user-rating-count">
-                    <div>
-                      <p>Baholangan:</p>
-                      <span>1605</span>
-                    </div>
-                    <div>
-                      <p>Reyting:</p>
-                      <span>3.5</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="phone__forward">
-                  <p className="phone__forward-tit">Maqolani ulashing</p>
-
-                  <ul className="phone__forward-list">
-                    <li className="phone__forward-item">
-                      <img src={telegram} alt="telegram" />
-                    </li>
-                    <li className="phone__forward-item">
-                      <img src={facebook} alt="telegram" />
-                    </li>
-                    <li className="phone__forward-item">
-                      <img src={twitr} alt="telegram" />
-                    </li>
-                  </ul>
-
-                  <div className="phone__forward-copy">
-                    <p className="phone__forward-copy-link">{`https://effect.uz${location.pathname}`}</p>
-                    <span></span>
-                    <button className='phone__forward-copy-btn'>Nusxa olish</button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="phone__comment">
-                <div className="phone__comment-form-box">
-                  <p className="phone__comment-title">Izoh qoldirish <span></span></p>
-
-                  <form className="phone__comment-form">
-                    <div className="phone__comment-input-box">
-                      <input className='phone__comment-input-user'
-                        name='name'
-                        type="text"
-                        placeholder='Ismingiz'
-                      />
-                      <input className='phone__comment-input-user'
-                        name='email'
-                        type="text"
-                        placeholder='Elektron pochtangiz (ixtiyoriy)'
-                      />
-                    </div>
-                    <div className="phone__comment-input-box">
-                      <textarea className='phone__comment-input-desc'
-                        name='desc'
-                        type="text"
-                        placeholder='Izohingizni bu yerga yozing…'
-                      />
-                      <button className='phone__comment-form-btn'>JO’NATISH</button>
-                    </div>
-                  </form>
-                </div>
-
-                <div className="phone__comments-box">
-                  <p className="phone__comments-title">Barcha izohlar (02) <span><i className='bx bx-chevron-up'></i></span></p>
-
-                  <ul className="phone__comments-list">
-                    <li className="phone__comments-item">
-                      <div className="phone__comments-item-like-box">
-                        <button>+</button>
-                        <p>12</p>
-                        <button>-</button>
-                      </div>
-
-                      <div className="phone__comments-item-desc">
-                        <div className="phone__comments-item-desc-top">
-                          <Link to={'/profil/:id'}>
-                            <img src={user_img} alt="user img" />
-                          </Link>
-                          <Link to={'/profil/:id'}>
-                            <p className='phone__comments-item-desc-user-name'>amyrobson</p>
-                          </Link>
-                          <span className='phone__comments-item-desc-data-comm'>1 oy avval</span>
-                        </div>
-
-                        <div className="phone__comments-item-desc-box">
-                          <p className='phone__comments-item-desc'>
-                            Impressive! Though it seems the drag feature could be improved. But overall it looks incredible.
-                            You’ve nailed the design and the responsiveness at various breakpoints works really well.
-                          </p>
-                        </div>
-                      </div>
-                    </li>
-                    <li className="phone__comments-item">
-                      <div className="phone__comments-item-like-box">
-                        <button>+</button>
-                        <p>12</p>
-                        <button>-</button>
-                      </div>
-
-                      <div className="phone__comments-item-desc">
-                        <div className="phone__comments-item-desc-top">
-                          <Link to={'/profil/:id'}>
-                            <img src={user_img} alt="user img" />
-                          </Link>
-                          <Link to={'/profil/:id'}>
-                            <p className='phone__comments-item-desc-user-name'>amyrobson</p>
-                          </Link>
-                          <span className='phone__comments-item-desc-data-comm'>1 oy avval</span>
-                        </div>
-
-                        <div className="phone__comments-item-desc-box">
-                          <p className='phone__comments-item-desc'>
-                            Impressive! Though it seems the drag feature could be improved. But overall it looks incredible.
-                            You’ve nailed the design and the responsiveness at various breakpoints works really well.
-                          </p>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div> : ""
-        ))}
       </section>
     </>
   )

@@ -1,8 +1,7 @@
 @import "../../App.scss";
 
 .right {
-  width: 100%;
-  max-width: 320px;
+  width: 21%;
   height: 100%;
   padding-top: 15px;
   padding-right: 34px;
@@ -18,7 +17,7 @@
     margin-bottom: 30px;
   }
   &__top-dark-light {
-    width: auto;
+    width: 90px;
     padding: 2px;
     display: flex;
     align-items: center;
@@ -142,7 +141,7 @@
     width: 100%;
     height: auto;
     margin-bottom: 25px;
-    padding: 7px 10px 7px 20px;
+    padding: 7px 15px;
     box-shadow: $box-shadow-2;
     background: $primary-color-1;
     border-radius: $border-radius-1;
@@ -153,9 +152,10 @@
     list-style-type: none;
   }
   &__aside {
-    padding: 21px 20px 6px 50px;
+    padding: 21px 20px 6px;
     height: auto;
     flex-wrap: wrap;
+    overflow: hidden;
     div {
       width: 100%;
       margin-bottom: 13px;
@@ -172,4 +172,51 @@
 .DarkActBtn {
   border-radius: 0 $border-radius-1 $border-radius-1 0;
   background: $primary-color-1;
+}
+
+@media screen and(max-width: 1100px) {
+  .right {
+    &__top {
+      flex-direction: column-reverse;
+      align-items: flex-end;
+      margin-bottom: 10px;
+    }
+    &__top-dark-light {
+      margin-top: 10px;
+    }
+    &__btns-list {
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    &__btns-item {
+      margin-left: 15px;
+    }
+    &__reporter-box {
+      flex-direction: column;
+      align-items: start;
+    }
+    &__reporter-box-tit {
+      margin-bottom: 10px;
+    }
+    &__aside {
+      div {
+        flex-direction: column;
+        align-items: start;
+        margin: 0;
+        margin-bottom: 10px;
+        img {
+          margin-bottom: 10px;
+        }
+      }
+    }
+    &__aside-price {
+      margin-right: 22px;
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .right {
+    display: none;
+  }
 }

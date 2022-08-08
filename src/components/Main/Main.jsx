@@ -10,7 +10,9 @@ function Main() {
   return (
     <>
       <section className='main'>
-        <MainTop />
+        <div className="main__top">
+          <MainTop />
+        </div>
 
         <div className="main__navbar">
           <h2 className='news-page__title'>{t('So’nggi Yangiliklar')}</h2>

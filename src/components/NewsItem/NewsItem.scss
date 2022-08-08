@@ -135,6 +135,7 @@
     color: rgba(0, 0, 0, 0.8);
     margin-right: 22px;
     font-style: italic;
+    white-space: nowrap;
   }
   &__user-star-list {
     @include list-style;
@@ -189,6 +190,7 @@
     margin-right: 22px;
     font-style: italic;
     margin-right: 33px;
+    white-space: nowrap;
   }
   &__forward-list {
     @include list-style;
@@ -197,6 +199,17 @@
   }
   &__forward-item {
     margin: 0 12px;
+    a {
+      display: inline-block;
+      font-size: 28px;
+    }
+    div {
+      display: none;
+      i {
+        font-size: 25px;
+        color: $primary-color-4;
+      }
+    }
   }
   &__forward-copy {
     display: flex;
@@ -230,6 +243,7 @@
     font-weight: 600;
     line-height: 30px;
     align-items: center;
+    white-space: nowrap;
     color: $primary-color-5;
     background: transparent;
 
@@ -252,6 +266,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    white-space: nowrap;
 
     span {
       display: inline-block;
@@ -323,7 +338,7 @@
     text-decoration: underline;
     display: flex;
     align-items: center;
-    margin-bottom: 28px;
+    // margin-bottom: 28px;
 
     span {
       display: inline-block;
@@ -354,7 +369,6 @@
     margin-bottom: 20px;
     align-items: flex-start;
     background: $primary-color-1;
-    justify-content: space-between;
     border-radius: $border-radius-2;
   }
   &__comments-item-like-box {
@@ -416,5 +430,62 @@
     font-weight: 400;
     line-height: 24px;
     color: #67727e;
+  }
+}
+.newItem-loading-box {
+  width: 100%;
+  height: 900px;
+  background: $primary-color-1;
+  border-radius: $border-radius-1;
+}
+
+@media screen and( max-width: 720px) {
+  .phone {
+    &__user-rating {
+      flex-direction: column;
+    }
+    &__user-star-tit {
+      display: none;
+    }
+    &__user-rating-count {
+      padding-top: 10px;
+      div {
+        margin-left: 0;
+        margin: 0 10px;
+      }
+    }
+    &__forward {
+      flex-direction: column;
+      margin-bottom: 0;
+    }
+    &__forward-item {
+      div {
+        display: block;
+      }
+    }
+    &__forward-tit {
+      display: none;
+    }
+    &__forward-copy {
+      display: none;
+    }
+  }
+}
+
+@media screen and( max-width: 570px) {
+  .phone {
+    &__comment-input-box {
+      flex-direction: column;
+      margin-bottom: 0;
+    }
+    &__comment-input-user,
+    &__comment-input-desc,
+    &__comment-input-desc {
+      margin-bottom: 20px;
+      width: 100%;
+    }
+    &__comment-form {
+      padding: 12px;
+    }
   }
 }

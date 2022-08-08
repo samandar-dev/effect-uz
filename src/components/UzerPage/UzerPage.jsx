@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useLocation, useParams } from 'react-router-dom'
 import MainTop from '../Main/MainTop/MainTop'
 import RightDarkLight from '../Right/RightDark_Light/RightDarkLight'
 import RightLanguage from '../Right/RightLanguage/RightLanguage'
@@ -6,8 +7,35 @@ import './UzerPage.scss'
 
 import user from '../../assets/images/user.png'
 import teleg from '../../assets/icons/telegram.svg'
+import GET from '../../API/GET'
 
 function UzerPage() {
+  let { id } = useParams()
+  const [data, setData] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [apiLang, setApiLang] = useState('oz')
+
+  const fechData = async () => {
+    try {
+      setLoading(false)
+      const category = await GET.reporter(id);
+      setData(category.data)
+      setLoading(true)
+    } catch (err) {
+      return console.error(err);
+    }
+  }
+
+  console.log(data);
+
+  useEffect(() => {
+    fechData()
+    localStorage.getItem('language') != undefined ? setApiLang(localStorage.getItem('language')) : ""
+  }, [localStorage.getItem('language')]);
+
+  if (!loading) {
+    return <div className='reporter-loading-box'><span></span><div></div></div>
+  }
   return (
     <>
       <section className='userpage'>
@@ -43,28 +71,27 @@ function UzerPage() {
           <div className="userpage__main-left">
             <div className="userpage__main-user-box">
               <div className="userpage__main-img-box">
-                <img src={user} alt="user" />
+                <img src={data.img} alt="user" />
               </div>
 
               <div className="userpage__main-user-name-categor">
-                <p className='userpage__main-user-categor'>Bosh muharrir</p>
-                <h3 className="userpage__main-user-name">Sobirov Saidalixon</h3>
+                <h3 className="userpage__main-user-name">{data.fullName}</h3>
 
                 <ul className="userpage__main-list">
                   <li className="userpage__main-item">
-                    <button>
-                      <img src={teleg} alt="telegram" />
-                    </button>
+                    <a href={`https://telegram.me/share/url?url=${data.telegram}`} target="_blank" className="readnews__share-btns">
+                      <i className='readnews__tg bx bxl-telegram'></i>
+                    </a>
                   </li>
                   <li className="userpage__main-item">
-                    <button>
-                      <img src={teleg} alt="telegram" />
-                    </button>
+                    <a href={`https://telegram.me/share/url?url=${data.telegram}`} target="_blank" className="readnews__share-btns">
+                      <i className='readnews__tg bx bxl-telegram'></i>
+                    </a>
                   </li>
                   <li className="userpage__main-item">
-                    <button>
-                      <img src={teleg} alt="telegram" />
-                    </button>
+                    <a href={`https://telegram.me/share/url?url=${data.telegram}`} target="_blank" className="readnews__share-btns">
+                      <i className='readnews__tg bx bxl-telegram'></i>
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -87,11 +114,11 @@ function UzerPage() {
             <div className="userpage__main-right-status">
               <div className="userpage__main-right-status-items">
                 <p>Maqolalar:</p>
-                <span>1605</span>
+                <span>{data.news_count}</span>
               </div>
               <div className="userpage__main-right-status-items">
                 <p>Baholangan:</p>
-                <span>1605</span>
+                <span>{data.stars}</span>
               </div>
               <div className="userpage__main-right-status-items">
                 <p>Reyting:</p>

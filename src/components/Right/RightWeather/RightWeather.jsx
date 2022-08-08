@@ -7,13 +7,15 @@ import './RightWeather.scss'
 function RightWeather() {
   const { t } = useTranslation()
   const [weatherSlider, setWeatherSilder] = useState(1)
-
+  const [loading, setLoading] = useState(false)
   const [data, setData] = useState([])
 
   const fechData = async () => {
     try {
+      setLoading(false)
       const category = await GET.provence();
       setData(category.data)
+      setLoading(true)
     } catch (err) {
       console.error(err)
       return;
@@ -24,6 +26,9 @@ function RightWeather() {
     fechData()
   }, []);
 
+  if (!loading) {
+    return <div className='weather-box'></div>
+  }
   return (
     <>
       <div className="right__weather">

@@ -5,6 +5,7 @@
   width: 100%;
   height: auto;
   padding: 42px 80px 85px;
+  // background: #fff;
 
   &__inner {
     position: relative;
@@ -40,12 +41,20 @@
     position: relative;
     width: 100%;
     height: 575px;
+    border-radius: 8px;
     overflow: hidden;
 
     img {
       width: 100%;
       height: 100%;
+      border-radius: 8px;
       object-fit: cover;
+    }
+
+    iframe {
+      border-radius: 8px;
+      width: 100%;
+      height: 100%;
     }
   }
   &____content-left-desc {
@@ -99,7 +108,12 @@
     position: relative;
     width: 34%;
     height: auto;
-    overflow: hidden;
+    // overflow: hidden;
+    a {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+    }
   }
   &__content-right-list {
     position: relative;
@@ -111,6 +125,7 @@
     list-style-type: none;
     border-radius: 8px;
     background: $primary-color-1;
+    // box-shadow: $box-shadow-2;
   }
   &__content-right-item {
     position: relative;
@@ -119,7 +134,17 @@
     display: flex;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     cursor: pointer;
+    transition: all 0.3s ease;
 
+    &:hover {
+      transform: scale(1.02);
+    }
+    a {
+      display: inline-block;
+      display: flex;
+      width: 100%;
+      height: 100%;
+    }
     &:nth-child(1) {
       padding-top: 0;
       border: none;
@@ -133,6 +158,7 @@
     width: 125px;
     height: 67px;
     margin-right: 10px;
+    z-index: 1;
 
     img {
       width: 125px;
@@ -160,9 +186,6 @@
       width: 11px;
       height: 13px;
       object-fit: cover;
-    }
-    &:hover {
-      transform: translate(-50%, -50%) scale(1.1);
     }
   }
   &__content-right-desc {
@@ -232,5 +255,26 @@
         transform: translateX(10px);
       }
     }
+  }
+}
+.videonews-slider {
+  display: none;
+}
+
+.animLeftVideoItem {
+  animation: animLeftVideoItem 0.2s ease;
+}
+@keyframes animLeftVideoItem {
+  100% {
+    transform: scale(1.03);
+  }
+}
+
+@media screen and(max-width: 1100px) {
+  .videonews {
+    display: none;
+  }
+  .videonews-slider {
+    display: block;
   }
 }

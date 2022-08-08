@@ -6,22 +6,30 @@ import './Navbar.scss'
 function Navbar() {
   const [categorSlider, setCategorSlider] = useState(1)
   const [categorActive, setCategorActive] = useState(1)
+  const [loading, setLoading] = useState(false)
+  const [apiLang, setApiLang] = useState('oz')
+  const lodingList = [1, 2, 3, 4, 5, 6, 7, 8]
   const [data, setData] = useState([])
 
   const fechData = async () => {
     try {
+      setLoading(false)
       const category = await GET.category();
-      setData((category.data).reverse())
+      setData(category.data)
+      setLoading(true)
     } catch (err) {
-      console.error(err)
-      return;
+      return console.error(err);
     }
   }
 
   useEffect(() => {
     fechData()
-  }, []);
+    localStorage.getItem('language') != undefined ? setApiLang(localStorage.getItem('language')) : ""
+  }, [localStorage.getItem('language')]);
 
+  if (!loading) {
+    return <div className='navbar-loading-box'><ul>{lodingList.map((itm, inx) => <li key={inx + 1}></li>)}</ul></div>
+  }
   return (
     <>
       <div className="main__navbar-categor">
@@ -33,26 +41,27 @@ function Navbar() {
         </button>
 
         <button
-          className={`main__navbar-categor-right-btn ${categorSlider === data.length - data.length + 2 ? "d-none" : ""}`}
-          onClick={() => data.length >= 8 ? setCategorSlider(categorSlider < data.length - data.length + 2 ? categorSlider + 1 : data.length - data.length + 2) : undefined}
+          className={`main__navbar-categor-right-btn ${categorSlider === data.length - 6 ? "d-none" : ""}`}
+          onClick={() => data.length >= 8 ? setCategorSlider(categorSlider < data.length - 6 ? categorSlider + 1 : data.length - 6) : undefined}
         >
           <i className='bx bx-chevron-right' ></i>
         </button>
 
         <ul className="main__navbar-categor-list"
           style={{
-            transform: `translateX(-${categorSlider * 14 - 14}%)`
+            transform: `translateX(-${categorSlider * 10 - 10}%)`
           }}>
-          {data.map((item, inx) => (
+          {data.map(item => (
             <li
-              className={`main__navbar-categor-item 
-              ${categorActive === item.id ? "categorAct" : ""}
-              `}
               key={item.id}
+              className={`main__navbar-categor-item 
+              ${categorActive === item.id ? "categorAct" : ""}`}
               onClick={() => setCategorActive(item.id)}
             >
-              <Link to={`/${item.name === 'Siyosat' ? 'politics' : "notfound"}`}>
-                <p className="main__navbar-categor-title">{item.name_uz}</p>
+              <Link to={`/${item.name}`}>
+                <p className="main__navbar-categor-title">
+                  {apiLang === 'uz' ? item.name_oz : apiLang === 'oz' ? item.name_uz : apiLang === 'ru' ? item.name_ru : ""}
+                </p>
               </Link>
             </li>
           ))}

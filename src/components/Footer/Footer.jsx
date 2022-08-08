@@ -24,39 +24,39 @@ function Footer() {
             <div className="footer__menus-desc">
               <div className="footer__menus">
                 <div className="footer__menu">
-                  <h3 className='footer__menus-title'>{t("Foydali sahifalar")}</h3>
+                  <h3 className='footer__menus-title'>{t("fsahifalar")}</h3>
 
                   <ul className="footer__menus-list">
                     <li className="footer__menus-item">
-                      <Link to={'/'}>{t("Yangiliklar lentasi")}</Link>
+                      <Link to={'/news'}>{t("yangi-lentasi")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>{t("Foto-yangiliklar")}</Link>
+                      <Link to={'/news'}>{t("ftyangi")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>{t("Video-yangiliklar")}</Link>
+                      <Link to={'/news'}>{t("vdyangi")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>{t("Content")}</Link>
+                      <Link to={'/'}>{t("content")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>{t("Integrations")}</Link>
+                      <Link to={'/'}>{t("integrations")}</Link>
                     </li>
                   </ul>
                 </div>
 
                 <div className="footer__menu">
-                  <h3 className='footer__menus-title'>{t("Ruknlar")}</h3>
+                  <h3 className='footer__menus-title'>{t("rukun")}</h3>
 
                   <ul className="footer__menus-list">
                     <li className="footer__menus-item">
-                      <Link to={'/'}>{t("Siyosat")}</Link>
+                      <Link to={'/politics'}>{t("siyosat")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>{t("Texnologiya")}</Link>
+                      <Link to={'/politics'}>{t("texno")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>{t("Sport")}</Link>
+                      <Link to={'/politics'}>{t("sport")}</Link>
                     </li>
                     <li className="footer__menus-item">
                       <Link to={'/'}>{t("Website Builder")}</Link>
@@ -65,17 +65,17 @@ function Footer() {
                 </div>
 
                 <div className="footer__menu">
-                  <h3 className='footer__menus-title'>{t("Hudutlar")}</h3>
+                  <h3 className='footer__menus-title'>{t("hududlar")}</h3>
 
                   <ul className="footer__menus-list">
                     <li className="footer__menus-item">
-                      <Link to={'/'}>{t("Toshkent")}</Link>
+                      <Link to={'/'}>{t("toshkent")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>{t("Samarqand")}</Link>
+                      <Link to={'/'}>{t("samarqand")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>{t("Qashqadaryo")}</Link>
+                      <Link to={'/'}>{t("qashqadaryo")}</Link>
                     </li>
                     <li className="footer__menus-item">
                       <Link to={'/'}>{t("Hosting")}</Link>
@@ -100,13 +100,13 @@ function Footer() {
                       <Link to={'/'}>{t("Careers")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>{t("Ko’p so’raladigan savollar")}</Link>
+                      <Link to={'/'}>{t("kop-sovollar")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>{t("Jamoa")}</Link>
+                      <Link to={'/'}>{t("jamoa")}</Link>
                     </li>
                     <li className="footer__menus-item">
-                      <Link to={'/'}>{t("Bo’sh ish o’rni")}</Link>
+                      <Link to={'/'}>{t("bosh-ish-orin")}</Link>
                     </li>
                   </ul>
                 </div>

@@ -1,16 +1,18 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import playIcon from '../../../../../assets/icons/play.svg'
 import timeIcon from '../../../../../assets/icons/time-icon.svg'
-import videoImg1 from '../../../../../assets/images/video-news-img-1.png'
 
-function VideoRightItems({ videoNewsItems, videoNewsItemId, setVideoNewsItemId }) {
+function VideoRightItems({ data, setVideoNewsItemId }) {
   return (
     <>
-      {videoNewsItems.map((item, inx) => (
-        videoNewsItemId !== item.id ?
-          <li className="videonews__content-right-item" key={inx + 1}>
+      {data.map((item, inx) => (
+        inx + 1 <= 5 ?
+          <li className="videonews__content-right-item" key={item.id}
+            onClick={() => setVideoNewsItemId(item.id)}>
+            {/* <Link to={'/'}> */}
             <div className="videonews__content-right-img-box">
-              <img src={videoImg1} alt="video img" />
+              <img src={item.default_img} alt="video img" />
               <button className='videonews__content-right-play-btn'>
                 <img src={playIcon} alt="play icon" />
               </button>
@@ -18,10 +20,11 @@ function VideoRightItems({ videoNewsItems, videoNewsItemId, setVideoNewsItemId }
 
             <div className="videonews__content-right-desc">
               <span className='videonews__content-right-desc-data'>
-                <img src={timeIcon} alt="hour icon" /> 05.11.2021
+                <img src={timeIcon} alt="hour icon" /> {item.created_date}
               </span>
-              <p className='videonews__content-right-text'>{item.desc}</p>
+              <p className='videonews__content-right-text'>{item.title_uz.substring(0, 45)}{45 <= item.title_uz.substring().length ? "..." : ""}</p>
             </div>
+            {/* </Link> */}
           </li> : ""
       ))}
     </>

@@ -32,9 +32,12 @@
     padding-right: 10px;
   }
   &__menus {
+    width: 100%;
     display: flex;
     margin-bottom: 50px;
     justify-content: space-between;
+    margin-left: -10px;
+    margin-right: -10px;
   }
   &__menus-title {
     font-size: 18px;
@@ -42,6 +45,7 @@
     line-height: 21px;
     margin-bottom: 32px;
     color: $primary-color-2;
+    white-space: nowrap;
   }
   &__menus-list {
     margin: 0;
@@ -57,6 +61,7 @@
       line-height: 16px;
       color: $primary-color-2;
       transition: all 0.2s ease;
+      white-space: nowrap;
 
       &:hover {
         text-decoration: underline;
@@ -168,5 +173,77 @@
   &__store-item {
     margin-right: 12px;
     cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .footer {
+    &__right {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 678px) {
+  .footer {
+    &__menus {
+      width: 100%;
+      flex-wrap: wrap;
+    }
+    &__menu {
+      margin: 0 10px;
+    }
+  }
+}
+
+@media screen and (max-width: 465px) {
+  .footer {
+    &__inner {
+      padding-top: 10px;
+    }
+    &__menus-desc {
+      padding-right: 0px;
+    }
+    &__logo-box {
+      margin: 0 auto;
+      margin-bottom: 15px;
+    }
+    &__menus {
+      width: 100%;
+      justify-content: center !important;
+      overflow: hidden;
+      margin: 0;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 1px;
+        height: 350px;
+        background: #666666;
+      }
+    }
+    &__menu {
+      width: 50%;
+      margin: 0;
+      margin-bottom: 15px;
+      &:nth-child(1),
+      &:nth-child(3) {
+        text-align: right;
+        padding-right: 10px;
+      }
+      &:nth-child(2),
+      &:nth-child(4) {
+        text-align: left;
+        padding-left: 10px;
+      }
+    }
+    &__menus-item {
+      line-height: 25px;
+    }
+    &__menus-title {
+      margin-bottom: 10px;
+    }
   }
 }

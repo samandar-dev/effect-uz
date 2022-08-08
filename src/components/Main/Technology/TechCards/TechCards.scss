@@ -1,6 +1,14 @@
 @import "../../../../App.scss";
 
 .main {
+  &__technology-title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: $primary-color-3;
+    margin-bottom: 20px;
+  }
   &__technology-cards {
     width: 100%;
     height: auto;
@@ -19,19 +27,26 @@
     width: 50%;
     height: 155px;
     margin-bottom: 20px;
+    padding-right: 20px;
+
+    a {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+    }
+    p {
+      margin-bottom: 20px;
+    }
 
     &:nth-child(2),
     &:nth-child(4),
     &:nth-child(6) {
-      .main__technology-card-box {
-        margin-left: auto;
-      }
+      padding-right: 0;
     }
   }
   &__technology-card-box {
     position: relative;
     width: 100%;
-    max-width: 375px;
     display: flex;
     cursor: pointer;
     align-items: center;
@@ -40,6 +55,7 @@
     border-radius: $border-radius-1;
     box-shadow: $box-shadow-2;
     transition: all 0.3s ease;
+    overflow: hidden;
     &:hover {
       box-shadow: $box-shadow-1;
       .main__technology-card-text {
@@ -47,11 +63,17 @@
       }
     }
   }
+  &__technology-card-categor-box {
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    transform: translate(0, -50%) rotateZ(-90deg);
+  }
   &__technology-card-span {
     position: absolute;
     top: 50%;
-    left: -30px;
-    transform: translate(0, -50%) rotate(-90deg);
+    left: 0px;
+    transform: translate(-50%, 0%);
     display: inline-block;
     padding: 5px 4px 0;
     font-weight: 400;
@@ -60,11 +82,23 @@
     color: $primary-color-3;
     background: rgba(217, 217, 217, 0.15);
     border-radius: 0 0 4px 4px;
+    white-space: nowrap;
     // opacity: 0.4;
   }
   &__technology-card-desc {
     width: 50%;
+    height: 140px;
     margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  &__technology-card-text-box {
+    height: 80%;
+    overflow: hidden;
+    // display: flex;
+    // flex-direction: column;
+    // // justify-content: space-around;
   }
   &__technology-card-text {
     color: $primary-color-3;
@@ -72,22 +106,25 @@
     font-weight: 500;
     font-size: 17px;
     margin-bottom: 6px;
+    padding-left: 5px;
   }
   &__technology-card-data {
     text-align: right;
     margin-right: 0;
     padding-right: 12px;
+    white-space: nowrap;
     span {
       color: $primary-color-3;
       line-height: 22px;
       font-weight: 400;
       font-size: 12px;
       opacity: 0.4;
+      margin-right: 10px;
       padding-left: 10px;
-      margin-left: 10px;
       border-left: 1px solid rgba(0, 0, 0, 0.19);
       &:nth-child(1) {
         border: none;
+        padding-left: 0;
       }
     }
   }
@@ -95,10 +132,13 @@
     width: 134px;
     height: 132px;
     margin-left: auto;
+    overflow: hidden;
+    border-radius: $border-radius-1;
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      border-radius: $border-radius-1;
     }
   }
   &___technology-cards-btn {
@@ -123,6 +163,7 @@
     }
   }
 }
+
 .techItemAct {
   box-shadow: 0px 2px 20px 5px rgba(7, 45, 75, 0.2);
 
@@ -130,9 +171,65 @@
     color: $primary-color-4;
   }
 }
+
 .techCards {
   box-shadow: $box-shadow-1;
   .main__technology-card-text {
     color: $primary-color-4;
+  }
+}
+
+.tech-card-loading-box {
+  width: 100%;
+  height: auto;
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    li {
+      width: 375px;
+      height: 155px;
+      background: $primary-color-1;
+      border-radius: $border-radius-1;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .main {
+    &__technology-cards-item {
+      width: 100%;
+      padding: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .main {
+    &__technology-cards-item {
+      width: 50%;
+      padding-right: 20px;
+      &:nth-child(2),
+      &:nth-child(4),
+      &:nth-child(6) {
+        padding-right: 0;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 678px) {
+  .main {
+    &__technology-cards-item {
+      width: 100%;
+      padding: 0;
+    }
+    &__technology-card-data {
+      text-align: left;
+    }
   }
 }

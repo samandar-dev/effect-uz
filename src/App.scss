@@ -54,3 +54,19 @@ button {
   padding: 0 20px;
   overflow-x: hidden;
 }
+.responsive-content {
+  display: none;
+}
+
+@media screen and (max-width: 1000px) {
+  body {
+    padding-top: 65px;
+    padding-bottom: 85px;
+  }
+  .container {
+    padding: 0 10px;
+  }
+  .responsive-content {
+    display: block;
+  }
+}
