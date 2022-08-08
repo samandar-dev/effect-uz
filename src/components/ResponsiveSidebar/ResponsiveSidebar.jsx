@@ -80,8 +80,8 @@ function ResponsiveSidebar() {
           <h2>Rukunlar</h2>
           <ul>
             {data.map(item => (
-              <Link to={`/newsitems/23`}>
-                <li key={item.id}>
+              <Link to={`/newsitems/23`} key={item.id}>
+                <li>
                   <p>{item.name}</p>
                 </li>
               </Link>

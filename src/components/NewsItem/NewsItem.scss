@@ -439,6 +439,21 @@
   border-radius: $border-radius-1;
 }
 
+@media screen and( max-width: 1000px) {
+  .phone {
+    padding: 0 100px;
+  }
+}
+@media screen and( max-width: 678px) {
+  .phone {
+    padding: 0 50px;
+  }
+}
+@media screen and( max-width: 576px) {
+  .phone {
+    padding: 0;
+  }
+}
 @media screen and( max-width: 720px) {
   .phone {
     &__user-rating {

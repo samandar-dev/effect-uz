@@ -195,7 +195,7 @@
 
 @media screen and (max-width: 1000px) {
   .news-page {
-    padding: 0;
+    padding: 0 100px;
     background: transparent;
     &__title {
       text-align: center;
@@ -221,6 +221,11 @@
       margin-right: 0;
       margin-left: 15px;
     }
+  }
+}
+@media screen and (max-width: 768px) {
+  .news-page {
+    padding: 0;
   }
 }
 @media screen and (max-width: 578px) {
